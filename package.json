@@ -1,0 +1,25 @@
+{
+  "name": "fundamentals-of-ddd",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PauloStraforini/Fundamentals-of-DDD.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/PauloStraforini/Fundamentals-of-DDD/issues"
+  },
+  "homepage": "https://github.com/PauloStraforini/Fundamentals-of-DDD#readme",
+  "devDependencies": {
+    "@types/node": "^24.3.0",
+    "typescript": "^5.9.2"
+  }
+}
