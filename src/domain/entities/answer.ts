@@ -1,7 +1,7 @@
-import { Entity } from "../../core/entities/entity.js"
-import type { UniqueEntityID } from "../../core/entities/unique-entity-id.js"
-import type { Optional } from "../../core/types/optional.js"
-
+/* eslint-disable @typescript-eslint/adjacent-overload-signatures */
+import { Entity } from '@/core/entities/entity'
+import { UniqueEntityID } from '@/core/entities/unique-entity-id'
+import { Optional } from '@/core/types/optional'
 
 interface AnswerProps {
   authorId: UniqueEntityID
@@ -15,43 +15,47 @@ export class Answer extends Entity<AnswerProps> {
   get authorId() {
     return this.props.authorId
   }
+
   get questionId() {
     return this.props.questionId
   }
+
   get content() {
     return this.props.content
   }
+
   get createdAt() {
     return this.props.createdAt
   }
+
   get updatedAt() {
     return this.props.updatedAt
   }
 
   get excerpt() {
-    return this.content
-      .substring(0, 120)
-      .trimEnd()
-      .concat('...')
+    return this.content.substring(0, 120).trimEnd().concat('...')
   }
 
-  private touch(){
+  private touch() {
     this.props.updatedAt = new Date()
   }
 
-  set content (content: string) {
+  set content(content: string) {
     this.props.content = content
-    this.touch
+    this.touch()
   }
 
   static create(
     props: Optional<AnswerProps, 'createdAt'>,
-    id?: UniqueEntityID
+    id?: UniqueEntityID,
   ) {
-    const answer = new Answer({
-      ...props,
-      createdAt: new Date(),
-    }, id)
+    const answer = new Answer(
+      {
+        ...props,
+        createdAt: new Date(),
+      },
+      id,
+    )
 
     return answer
   }
