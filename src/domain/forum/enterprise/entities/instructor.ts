@@ -1,4 +1,4 @@
-import { Entity } from '../../core/entities/entity.js'
+import { Entity } from '../../../../core/entities/entity'
 
 interface InstructorProps {
   name: string
