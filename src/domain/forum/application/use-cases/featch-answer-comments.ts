@@ -1,8 +1,6 @@
 import { AnswerComment } from '@/domain/forum/enterprise/entities/answer-comment'
 import { AnswersCommentsRepository } from '@/domain/forum/application/repositories/answer-comments-repository'
 import { Either, right } from '@/core/either'
-import { NotAllowedError } from './errors/not-allowed-error'
-import { ResourceNotFoundError } from './errors/resource-not-found-error'
 
 interface FetchAnswerCommentsUseCaseRequest {
   answerId: string
@@ -10,11 +8,12 @@ interface FetchAnswerCommentsUseCaseRequest {
 }
 
 type FetchAnswerCommentsUseCaseResponse = Either<
-  ResourceNotFoundError | NotAllowedError,
+  null,
   {
     answerComments: AnswerComment[]
   }
 >
+
 export class FetchAnswerCommentsUseCase {
   constructor(private answerCommentsRepository: AnswersCommentsRepository) {}
 
