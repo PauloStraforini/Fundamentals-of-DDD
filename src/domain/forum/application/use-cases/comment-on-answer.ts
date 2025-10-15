@@ -2,7 +2,9 @@ import { AnswersCommentsRepository } from '../repositories/answer-comments-repos
 import { AnswerComment } from '../../enterprise/entities/answer-comment'
 import { AnswersRepository } from '../repositories/answer-repository'
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
-import { Either, right } from '@/core/either'
+import { Either, left, right } from '@/core/either'
+import { ResourceNotFoundError } from './errors/resource-not-found-error'
+import { NotAllowedError } from './errors/not-allowed-error'
 
 interface CommentOnAnswerUseCaseRequest {
   authorId: string
@@ -11,7 +13,7 @@ interface CommentOnAnswerUseCaseRequest {
 }
 
 type CommentOnAnswerUseCaseResponse = Either<
-  null,
+  ResourceNotFoundError | NotAllowedError,
   {
     answerComment: AnswerComment
   }
@@ -31,7 +33,7 @@ export class CommentOnAnswerUseCase {
     const answer = await this.answersRepository.findById(answerId)
 
     if (!answer) {
-      throw new Error('Answer not found')
+      return left(new ResourceNotFoundError())
     }
 
     const answerComment = AnswerComment.create({

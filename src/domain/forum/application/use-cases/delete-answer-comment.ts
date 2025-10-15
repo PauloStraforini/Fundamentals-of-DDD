@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-types */
 import { Either, left, right } from '@/core/either'
 import { AnswersCommentsRepository } from '@/domain/forum/application/repositories/answer-comments-repository'
 import { ResourceNotFoundError } from './errors/resource-not-found-error'
@@ -10,7 +11,7 @@ interface DeleteAnswerCommentUseCaseRequest {
 
 type DeleteAnswerCommentUseCaseResponse = Either<
   ResourceNotFoundError | NotAllowedError,
-  object
+  {}
 >
 
 export class DeleteAnswerCommentUseCase {
