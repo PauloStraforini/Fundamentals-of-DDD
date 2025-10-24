@@ -8,12 +8,12 @@ import { InMemoryNotificationsRepository } from 'test/repositories/in-memory-not
 import { makeQuestion } from 'test/factories/make-question'
 import { SpyInstance } from 'vitest'
 import { waitFor } from 'test/utils/wait-for'
+import { OnQuestionBestAnswerChosen } from '@/domain/notification/application/subscribers/on-question-best-answer-chosen'
 import {
   SendNotificationUseCase,
   SendNotificationUseCaseRequest,
   SendNotificationUseCaseResponse,
-} from '@/domain/notification/application/use-case/send.nofication'
-import { OnQuestionBestAnswerChosen } from './on-answer-created'
+} from '../use-case/send.nofication'
 
 let inMemoryQuestionAttachmentsRepository: InMemoryQuestionAttachmentsRepository
 let inMemoryQuestionsRepository: InMemoryQuestionsRepository

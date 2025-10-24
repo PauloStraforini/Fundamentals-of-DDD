@@ -1,3 +1,4 @@
+import { OnAnswerCreated } from '@/domain/notification/application/subscribers/on-answer-created'
 import { makeAnswer } from 'test/factories/make-answer'
 import { InMemoryAnswerAttachmentsRepository } from 'test/repositories/in-memory-answer-attachments-repository'
 import { InMemoryAnswersRepository } from 'test/repositories/in-memory-answers-repository'
@@ -12,8 +13,7 @@ import {
   SendNotificationUseCase,
   SendNotificationUseCaseRequest,
   SendNotificationUseCaseResponse,
-} from '@/domain/notification/application/use-case/send.nofication'
-import { OnQuestionBestAnswerChosen } from './on-answer-created'
+} from '../use-case/send.nofication'
 
 let inMemoryQuestionAttachmentsRepository: InMemoryQuestionAttachmentsRepository
 let inMemoryQuestionsRepository: InMemoryQuestionsRepository
@@ -27,7 +27,7 @@ let sendNotificationExecuteSpy: SpyInstance<
   Promise<SendNotificationUseCaseResponse>
 >
 
-describe('On Question Best Answer Chosen', () => {
+describe('On Answer Created', () => {
   beforeEach(() => {
     inMemoryQuestionAttachmentsRepository =
       new InMemoryQuestionAttachmentsRepository()
@@ -47,22 +47,15 @@ describe('On Question Best Answer Chosen', () => {
     sendNotificationExecuteSpy = vi.spyOn(sendNotificationUseCase, 'execute')
 
     // eslint-disable-next-line no-new
-    new OnQuestionBestAnswerChosen(
-      inMemoryAnswersRepository,
-      sendNotificationUseCase,
-    )
+    new OnAnswerCreated(inMemoryQuestionsRepository, sendNotificationUseCase)
   })
 
-  it('should send a notification when topic has new best answer chosen', async () => {
+  it('should  send a notification when an answer is created', async () => {
     const question = makeQuestion()
     const answer = makeAnswer({ questionId: question.id })
 
     inMemoryQuestionsRepository.create(question)
     inMemoryAnswersRepository.create(answer)
-
-    question.bestAnswerId = answer.id
-
-    inMemoryQuestionsRepository.save(question)
 
     await waitFor(() => {
       expect(sendNotificationExecuteSpy).toHaveBeenCalled()
